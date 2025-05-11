@@ -79,6 +79,27 @@
                 </div>
             </div>
 
+            @if($verifikasiPending)
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm border-l-4 border-l-indigo-500 border border-gray-100 transition-all duration-300 hover:shadow-md mb-6 p-6">
+                    <div class="flex items-start">
+                        <div class="flex items-center justify-center w-12 h-12 rounded-full bg-indigo-100 flex-shrink-0">
+                            <svg class="w-6 h-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <h3 class="text-lg font-semibold text-indigo-900 mb-2">Verifikasi Data Sedang Diproses</h3>
+                            <p class="text-gray-600">
+                                Pengajuan verifikasi data Anda sedang dalam proses review oleh admin desa. Kami akan memberi tahu Anda segera setelah verifikasi selesai.
+                            </p>
+                            <div class="mt-4 h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
+                                <div class="bg-indigo-500 h-full rounded-full w-1/2 animate-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             @if($penduduk)
                 <!-- Profile Summary - Modern Card -->
                 <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100 transition-all duration-300 hover:shadow-md mb-6">
@@ -246,52 +267,30 @@
                     <!-- Add your service cards here -->
                 </div>
             @else
-                @if($verifikasiPending)
-                    <!-- Verification in Progress - Modern Card -->
-                    <div class="bg-white rounded-xl overflow-hidden shadow-sm border-l-4 border-l-indigo-500 border border-gray-100 transition-all duration-300 hover:shadow-md mb-6 p-6">
-                        <div class="flex items-start">
-                            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-indigo-100 flex-shrink-0">
-                                <svg class="w-6 h-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <!-- No Verification Submitted - Modern Card with CTA -->
+                <div class="bg-white rounded-xl overflow-hidden shadow-sm border-l-4 border-l-blue-500 border border-gray-100 transition-all duration-300 hover:shadow-md mb-6 p-6">
+                    <div class="flex flex-col md:flex-row md:items-center">
+                        <div class="flex-shrink-0 mb-4 md:mb-0">
+                            <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                                <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                 </svg>
                             </div>
-                            <div class="ml-4">
-                                <h3 class="text-lg font-semibold text-indigo-900 mb-2">Verifikasi Data Sedang Diproses</h3>
-                                <p class="text-gray-600">
-                                    Pengajuan verifikasi data Anda sedang dalam proses review oleh admin desa. Kami akan memberi tahu Anda segera setelah verifikasi selesai.
-                                </p>
-                                <div class="mt-4 h-1.5 w-full bg-gray-200 rounded-full overflow-hidden">
-                                    <div class="bg-indigo-500 h-full rounded-full w-1/2 animate-pulse"></div>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="md:ml-6 flex-grow">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">Verifikasi Data Diperlukan</h3>
+                            <p class="text-gray-600 mb-4">
+                                Untuk mengakses layanan desa secara penuh, Anda perlu menyelesaikan verifikasi data kependudukan. Verifikasi ini hanya perlu dilakukan sekali.
+                            </p>
+                            <a href="{{ route('verifikasi-data') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300">
+                                <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                                </svg>
+                                Lengkapi Data Verifikasi
+                            </a>
                         </div>
                     </div>
-                @else
-                    <!-- No Verification Submitted - Modern Card with CTA -->
-                    <div class="bg-white rounded-xl overflow-hidden shadow-sm border-l-4 border-l-blue-500 border border-gray-100 transition-all duration-300 hover:shadow-md mb-6 p-6">
-                        <div class="flex flex-col md:flex-row md:items-center">
-                            <div class="flex-shrink-0 mb-4 md:mb-0">
-                                <div class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
-                                    <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                </div>
-                            </div>
-                            <div class="md:ml-6 flex-grow">
-                                <h3 class="text-lg font-semibold text-gray-900 mb-2">Verifikasi Data Diperlukan</h3>
-                                <p class="text-gray-600 mb-4">
-                                    Untuk mengakses layanan desa secara penuh, Anda perlu menyelesaikan verifikasi data kependudukan. Verifikasi ini hanya perlu dilakukan sekali.
-                                </p>
-                                <a href="{{ route('verifikasi-data') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-medium rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300">
-                                    <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                                    </svg>
-                                    Lengkapi Data Verifikasi
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                @endif
+                </div>
 
                 <!-- Feature Highlights - Modern Cards with Hover Effects -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

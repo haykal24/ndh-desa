@@ -889,70 +889,7 @@
             </div>
         </div>
 
-        <!-- Include Swiper.js from CDN -->
-        <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-        <style>
-            /* Change pagination bullets to emerald theme */
-            .swiper-pagination-bullet {
-                width: 10px;
-                height: 10px;
-                background: rgba(16, 185, 129, 0.2); /* emerald-500 with opacity */
-                opacity: 1;
-            }
 
-            .swiper-pagination-bullet-active {
-                background: rgb(16, 185, 129); /* emerald-500 */
-                transform: scale(1.2);
-                transition: transform 0.3s;
-            }
-
-            /* Dynamic bullets styling */
-            .swiper-pagination-bullet-active-main {
-                background: rgb(16, 185, 129); /* emerald-500 */
-                transform: scale(1.4);
-            }
-
-            .swiper-pagination-bullet-active-prev,
-            .swiper-pagination-bullet-active-next {
-                background: rgba(16, 185, 129, 0.6); /* emerald-500 with medium opacity */
-                transform: scale(1.1);
-            }
-
-            .swiper-pagination-bullet-active-prev-prev,
-            .swiper-pagination-bullet-active-next-next {
-                background: rgba(16, 185, 129, 0.3); /* emerald-500 with low opacity */
-            }
-        </style>
-        <!-- Initialize Swiper -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var swiper = new Swiper('.berita-slider', {
-                    slidesPerView: 1,
-                    spaceBetween: 24,
-                    loop: true,
-                    autoplay: {
-                        delay: 5000,
-                        disableOnInteraction: false,
-                    },
-                    pagination: {
-                        el: '.berita-pagination',
-                        clickable: true,
-                        dynamicBullets: true,
-                    },
-                    breakpoints: {
-                        640: {
-                            slidesPerView: 2,
-                            spaceBetween: 24,
-                        },
-                        1024: {
-                            slidesPerView: 3,
-                            spaceBetween: 30,
-                        }
-                    }
-                });
-            });
-        </script>
     </section>
     @endif
 
@@ -1107,36 +1044,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- Initialize Swiper -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var umkmSwiper = new Swiper('.umkm-slider', {
-                    slidesPerView: 1,
-                    spaceBetween: 24,
-                    loop: true,
-                    autoplay: {
-                        delay: 5000,
-                        disableOnInteraction: false,
-                    },
-                    pagination: {
-                        el: '.umkm-pagination',
-                        clickable: true,
-                        dynamicBullets: true,
-                    },
-                    breakpoints: {
-                        640: {
-                            slidesPerView: 2,
-                            spaceBetween: 24,
-                        },
-                        1024: {
-                            slidesPerView: 3,
-                            spaceBetween: 30,
-                        }
-                    }
-                });
-            });
-        </script>
     </section>
     @endif
 
@@ -1414,196 +1321,126 @@
         </div>
     </div>
 </section>
-
-<script>
-    // Map loader handling
-    document.addEventListener('DOMContentLoaded', function() {
-        // If iframe fails to load after 5 seconds, hide loader anyway
-        setTimeout(function() {
-            const loader = document.querySelector('.map-loader');
-            if (loader) {
-                loader.style.display = 'none';
-            }
-        }, 5000);
-    });
-</script>
 @endsection
+
 
 @push('styles')
 <style>
-    /* Smooth scroll behavior */
-    html {
-        scroll-behavior: smooth;
-    }
 
-    /* Hero pattern yang lebih halus */
-    .hero-pattern {
-        position: relative;
-        background: linear-gradient(to right, rgba(6, 95, 70, 0.9), rgba(6, 95, 70, 0.7));
-    }
+/* Change pagination bullets to emerald theme */
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+    background: rgba(16, 185, 129, 0.2); /* emerald-500 with opacity */
+    opacity: 1;
+}
 
-    /* Efek hover pada dots vertikal */
-    .dots-vertical button:hover span {
-        height: 8px;
-        opacity: 0.9;
-    }
+.swiper-pagination-bullet-active {
+    background: rgb(16, 185, 129); /* emerald-500 */
+    transform: scale(1.2);
+    transition: transform 0.3s;
+}
 
-    /* Efek animasi untuk teks */
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+/* Dynamic bullets styling */
+.swiper-pagination-bullet-active-main {
+    background: rgb(16, 185, 129); /* emerald-500 */
+    transform: scale(1.4);
+}
 
-    .animate-fadeInUp {
-        animation: fadeInUp 0.8s ease forwards;
-    }
+.swiper-pagination-bullet-active-prev,
+.swiper-pagination-bullet-active-next {
+    background: rgba(16, 185, 129, 0.6); /* emerald-500 with medium opacity */
+    transform: scale(1.1);
+}
 
-    .animate-slight-zoom {
-        animation: slightZoom 10s ease-out forwards;
-    }
-
-    @keyframes slightZoom {
-        0% { transform: scale(1); }
-        100% { transform: scale(1.05); }
-    }
+.swiper-pagination-bullet-active-prev-prev,
+.swiper-pagination-bullet-active-next-next {
+    background: rgba(16, 185, 129, 0.3); /* emerald-500 with low opacity */
+}
 </style>
 @endpush
 
 @push('scripts')
-<script>
+  <script>
     function modernCarousel() {
-        return {
-            currentSlide: 0,
-            totalSlides: {{ isset($profilDesa->thumbnails) && is_array($profilDesa->thumbnails) && count($profilDesa->thumbnails) > 0
-                ? count($profilDesa->thumbnails)
-                : 1 }},
-            autoplaySpeed: 7000, // Time between slides (ms) - 7 seconds
-            transitionDuration: 800, // Duration of transition animation (ms) - 0.8 seconds
-            autoplayTimeout: null,
+    return {
+        currentSlide: 0,
+        totalSlides: {{ isset($profilDesa->thumbnails) && is_array($profilDesa->thumbnails) && count($profilDesa->thumbnails) > 0
+            ? count($profilDesa->thumbnails)
+            : 1 }},
+        autoplaySpeed: 7000, // Time between slides (ms) - 7 seconds
+        transitionDuration: 800, // Duration of transition animation (ms) - 0.8 seconds
+        autoplayTimeout: null,
 
-            init() {
-                if (this.totalSlides > 1) {
+        init() {
+            if (this.totalSlides > 1) {
+                this.startAutoplay();
+
+                // Stop autoplay when user interacts with the carousel
+                document.querySelector('section').addEventListener('mouseenter', () => {
+                    this.stopAutoplay();
+                });
+
+                document.querySelector('section').addEventListener('touchstart', () => {
+                    this.stopAutoplay();
+                }, {passive: true});
+
+                // Resume autoplay when user leaves
+                document.querySelector('section').addEventListener('mouseleave', () => {
                     this.startAutoplay();
+                });
 
-                    // Stop autoplay when user interacts with the carousel
-                    document.querySelector('section').addEventListener('mouseenter', () => {
-                        this.stopAutoplay();
-                    });
-
-                    document.querySelector('section').addEventListener('touchstart', () => {
-                        this.stopAutoplay();
-                    }, {passive: true});
-
-                    // Resume autoplay when user leaves
-                    document.querySelector('section').addEventListener('mouseleave', () => {
-                        this.startAutoplay();
-                    });
-
-                    document.querySelector('section').addEventListener('touchend', () => {
-                        this.startAutoplay();
-                    }, {passive: true});
-                }
-            },
-
-            nextSlide() {
-                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
-            },
-
-            prevSlide() {
-                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
-            },
-
-            startAutoplay() {
-                this.stopAutoplay();
-                this.autoplayTimeout = setTimeout(() => {
-                    this.nextSlide();
+                document.querySelector('section').addEventListener('touchend', () => {
                     this.startAutoplay();
-                }, this.autoplaySpeed);
-            },
-
-            stopAutoplay() {
-                clearTimeout(this.autoplayTimeout);
+                }, {passive: true});
             }
-        };
-    }
+        },
 
-    // Observer for lazy loading additional content
-    document.addEventListener('DOMContentLoaded', () => {
-        // Create an intersection observer for any additional content
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // If the element has data-src, replace src with it
-                    const img = entry.target.querySelector('img[data-src]');
-                    if (img) {
-                        img.src = img.dataset.src;
-                        img.removeAttribute('data-src');
-                    }
-                    observer.unobserve(entry.target);
+        nextSlide() {
+            this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+        },
+
+        prevSlide() {
+            this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+        },
+
+        startAutoplay() {
+            this.stopAutoplay();
+            this.autoplayTimeout = setTimeout(() => {
+                this.nextSlide();
+                this.startAutoplay();
+            }, this.autoplaySpeed);
+        },
+
+        stopAutoplay() {
+            clearTimeout(this.autoplayTimeout);
+        }
+    };
+}
+
+// Observer for lazy loading additional content
+document.addEventListener('DOMContentLoaded', () => {
+    // Create an intersection observer for any additional content
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // If the element has data-src, replace src with it
+                const img = entry.target.querySelector('img[data-src]');
+                if (img) {
+                    img.src = img.dataset.src;
+                    img.removeAttribute('data-src');
                 }
-            });
-        }, {
-            rootMargin: '0px 0px 200px 0px' // Load when within 200px of viewport
+                observer.unobserve(entry.target);
+            }
         });
-
-        // Observe sections with images
-        document.querySelectorAll('.lazy-section').forEach(section => {
-            observer.observe(section);
-        });
+    }, {
+        rootMargin: '0px 0px 200px 0px' // Load when within 200px of viewport
     });
 
-    // Intersection Observer for counting animation when scrolled into view
-    document.addEventListener('DOMContentLoaded', () => {
-        // Setup the intersection observer
-        const counterObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Check if we've already triggered the animation
-                    if (!entry.target._x_isShown) {
-                        entry.target._x_isShown = true;
-
-                        // Get the Alpine component instance
-                        const component = Alpine.$data(entry.target);
-
-                        // Set up the animation
-                        const duration = 1000;
-                        let startTime = null;
-
-                        function step(timestamp) {
-                            if (!startTime) startTime = timestamp;
-                            const progress = Math.min((timestamp - startTime) / duration, 1);
-                            component.value = Math.floor(progress * component.target);
-
-                            if (progress < 1) {
-                                window.requestAnimationFrame(step);
-                            } else {
-                                component.value = component.target; // Ensure we end at exactly the target
-                            }
-                        }
-
-                        // Start the animation
-                        window.requestAnimationFrame(step);
-
-                        // Unobserve after animation starts
-                        observer.unobserve(entry.target);
-                    }
-                }
-            });
-        }, {
-            threshold: 0.1, // Trigger when at least 10% of the element is visible
-            rootMargin: '0px 0px -50px 0px' // Adjust the trigger point (starts animation a bit before the element is fully in view)
-        });
-
-        // Observe all counter elements
-        document.querySelectorAll('.counter-item').forEach(counter => {
-            counterObserver.observe(counter);
-        });
+    // Observe sections with images
+    document.querySelectorAll('.lazy-section').forEach(section => {
+        observer.observe(section);
     });
-</script>
+});
+  </script>
 @endpush

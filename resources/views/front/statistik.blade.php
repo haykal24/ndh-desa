@@ -2,191 +2,6 @@
 
 @section('title', 'Statistik Desa ' . ($profilDesa->nama_desa ?? ''))
 
-@push('styles')
-<style>
-    /* Stats Grid Layout */
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-        gap: 2rem;
-        margin-bottom: 2.5rem;
-    }
-
-    @media (min-width: 768px) {
-        .stats-grid {
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-        }
-    }
-
-    /* Stat Card Style */
-    .stat-card {
-        background-color: white;
-        border-radius: 0.75rem;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        padding: 1.5rem;
-        text-align: center;
-        transition: all 0.3s ease;
-        border: 1px solid #f3f4f6;
-    }
-
-    .stat-card:hover {
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-
-    /* Icon Container */
-    .stat-icon {
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1rem;
-        border-radius: 9999px;
-        width: 64px;
-        height: 64px;
-    }
-
-    /* Label Style */
-    .stat-label {
-        color: #374151;
-        font-weight: 500;
-        font-size: 1rem;
-        margin-bottom: 0.75rem;
-    }
-
-    /* Value Style */
-    .stat-value {
-        font-size: 1.875rem;
-        font-weight: 700;
-        line-height: 1;
-    }
-
-    @media (min-width: 768px) {
-        .stat-value {
-            font-size: 2.25rem;
-        }
-    }
-
-    /* Description Style */
-    .stat-desc {
-        color: #6b7280;
-        font-size: 0.875rem;
-        margin-top: 0.5rem;
-    }
-
-    /* Tab Buttons */
-
-
-    .tab-button.active {
-        background-color: #059669;
-        color: white;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-
-    .tab-button:not(.active) {
-        background-color: #f3f4f6;
-        color: #4b5563;
-    }
-
-    .tab-button:not(.active):hover {
-        background-color: #e5e7eb;
-    }
-
-    /* Chart Containers */
-    .chart-container {
-        width: 100%;
-        height: 360px;
-        margin-bottom: 0.5rem;
-    }
-
-    /* Chart Cards */
-    .chart-card {
-        background-color: white;
-        border-radius: 0.5rem;
-        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        border: 1px solid #f3f4f6;
-        padding: 1.5rem;
-        transition: all 0.3s ease;
-    }
-
-    .chart-card:hover {
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    }
-
-    .chart-card h3 {
-        font-size: 1.125rem;
-        font-weight: 500;
-        color: #1f2937;
-        margin-bottom: 1rem;
-        display: flex;
-        align-items: center;
-    }
-
-    .chart-card h3 i {
-        margin-right: 0.5rem;
-        color: #059669;
-    }
-
-    /* Tab Content */
-    .tab-content {
-        transition: opacity 0.3s ease;
-    }
-
-    .tab-content.hidden {
-        display: none;
-    }
-
-    /* Tambahkan style untuk menonaktifkan efek hover pada chart Education dan Occupation */
-    #education-chart .apexcharts-xcrosshairs,
-    #education-chart .apexcharts-ycrosshairs,
-    #occupation-chart .apexcharts-xcrosshairs,
-    #occupation-chart .apexcharts-ycrosshairs {
-        display: none !important;
-    }
-
-    #education-chart .apexcharts-pie-area:hover,
-    #occupation-chart .apexcharts-pie-area:hover {
-        opacity: 1 !important;
-        transform: none !important;
-    }
-
-    /* Filter periode button style */
-    .periode-btn {
-        background-color: #f3f4f6;
-        color: #4b5563;
-        padding: 0.5rem 1rem;
-
-        font-size: 0.875rem;
-        font-weight: 500;
-        transition: all 0.2s ease;
-        border: 1px solid transparent;
-    }
-
-    .periode-btn:hover {
-        background-color: #e5e7eb;
-    }
-
-    .periode-btn.active {
-        background-color: #059669;
-        color: white;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-
-    /* Loading animation styles */
-    @keyframes pulse {
-        0%, 100% {
-            opacity: 1;
-        }
-        50% {
-            opacity: 0.5;
-        }
-    }
-
-    .pulse {
-        animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    }
-</style>
-@endpush
 
 @section('breadcrumbs')
 <div class="border-gray-100">
@@ -697,84 +512,7 @@
             </div>
 
             <!-- Script untuk warna status berdasarkan kondisi deficit/surplus -->
-            <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Fungsi untuk mengubah warna tampilan status berdasarkan nilai saldo
-                function updateStatusColors(isDeficit) {
-                    const saldoIcon = document.getElementById('saldo-icon');
-                    const trendIcon = document.getElementById('trend-icon');
-                    const saldoStatus = document.getElementById('saldo-status');
-                    const trendStatus = document.getElementById('trend-status');
-                    const saldoContainer = document.getElementById('saldo-status-container');
-                    const trendContainer = document.getElementById('trend-status-container');
 
-                    if (isDeficit) {
-                        // Defisit - warna merah
-                        saldoIcon.className = 'fas fa-info-circle text-red-500 mt-0.5 mr-2.5';
-                        trendIcon.className = 'fas fa-chart-line text-red-500 mt-0.5 mr-2.5';
-                        saldoStatus.className = 'block text-red-500 font-medium text-sm md:text-base';
-                        trendStatus.className = 'block text-red-500 text-sm md:text-base';
-                        saldoContainer.className = 'p-3 bg-white rounded-lg border border-red-100 flex items-start';
-                        trendContainer.className = 'p-3 bg-white rounded-lg border border-red-100 flex items-start';
-                    } else {
-                        // Surplus - warna emerald
-                        saldoIcon.className = 'fas fa-info-circle text-emerald-500 mt-0.5 mr-2.5';
-                        trendIcon.className = 'fas fa-chart-line text-emerald-500 mt-0.5 mr-2.5';
-                        saldoStatus.className = 'block text-emerald-500 font-medium text-sm md:text-base';
-                        trendStatus.className = 'block text-emerald-500 text-sm md:text-base';
-                        saldoContainer.className = 'p-3 bg-white rounded-lg border border-emerald-100 flex items-start';
-                        trendContainer.className = 'p-3 bg-white rounded-lg border border-emerald-100 flex items-start';
-                    }
-                }
-
-                // Pantau perubahan pada nilai saldo desa
-                const observer = new MutationObserver(function(mutations) {
-                    mutations.forEach(function(mutation) {
-                        if (mutation.type === 'characterData' || mutation.type === 'childList') {
-                            const saldoElement = document.getElementById('saldo-desa');
-                            if (saldoElement) {
-                                const saldoText = saldoElement.textContent;
-                                // Periksa apakah saldo negatif (defisit)
-                                const isDeficit = saldoText.includes('-');
-                                updateStatusColors(isDeficit);
-                            }
-                        }
-                    });
-                });
-
-                // Mulai observasi
-                const saldoElement = document.getElementById('saldo-desa');
-                if (saldoElement) {
-                    observer.observe(saldoElement, { childList: true, characterData: true, subtree: true });
-                    // Periksa nilai awal
-                    const isDeficit = saldoElement.textContent.includes('-');
-                    updateStatusColors(isDeficit);
-                }
-
-                // Custom handling for periode buttons if Alpine.js isn't closing the dropdown
-                document.querySelectorAll('.periode-btn').forEach(button => {
-                    button.addEventListener('click', function() {
-                        // Semua dropdowns yang mungkin terbuka (jika ada multiple)
-                        document.querySelectorAll('[x-data]').forEach(dropdown => {
-                            if (dropdown.__x) {
-                                dropdown.__x.$data.open = false;
-                            }
-                        });
-
-                        // Update selected text
-                        const periodText = this.innerText.trim();
-                        document.getElementById('selected-periode').textContent = periodText;
-
-                        // Handle custom date range visibility
-                        if (this.getAttribute('data-periode') === 'kustom') {
-                            document.getElementById('date-range-picker').classList.remove('hidden');
-                        } else {
-                            document.getElementById('date-range-picker').classList.add('hidden');
-                        }
-                    });
-                });
-            });
-            </script>
         </div>
 
         <!-- Bansos Section -->
@@ -1169,8 +907,84 @@
 @push('scripts')
 <!-- ApexCharts JS -->
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+     <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                // Fungsi untuk mengubah warna tampilan status berdasarkan nilai saldo
+                function updateStatusColors(isDeficit) {
+                    const saldoIcon = document.getElementById('saldo-icon');
+                    const trendIcon = document.getElementById('trend-icon');
+                    const saldoStatus = document.getElementById('saldo-status');
+                    const trendStatus = document.getElementById('trend-status');
+                    const saldoContainer = document.getElementById('saldo-status-container');
+                    const trendContainer = document.getElementById('trend-status-container');
 
-<script>
+                    if (isDeficit) {
+                        // Defisit - warna merah
+                        saldoIcon.className = 'fas fa-info-circle text-red-500 mt-0.5 mr-2.5';
+                        trendIcon.className = 'fas fa-chart-line text-red-500 mt-0.5 mr-2.5';
+                        saldoStatus.className = 'block text-red-500 font-medium text-sm md:text-base';
+                        trendStatus.className = 'block text-red-500 text-sm md:text-base';
+                        saldoContainer.className = 'p-3 bg-white rounded-lg border border-red-100 flex items-start';
+                        trendContainer.className = 'p-3 bg-white rounded-lg border border-red-100 flex items-start';
+                    } else {
+                        // Surplus - warna emerald
+                        saldoIcon.className = 'fas fa-info-circle text-emerald-500 mt-0.5 mr-2.5';
+                        trendIcon.className = 'fas fa-chart-line text-emerald-500 mt-0.5 mr-2.5';
+                        saldoStatus.className = 'block text-emerald-500 font-medium text-sm md:text-base';
+                        trendStatus.className = 'block text-emerald-500 text-sm md:text-base';
+                        saldoContainer.className = 'p-3 bg-white rounded-lg border border-emerald-100 flex items-start';
+                        trendContainer.className = 'p-3 bg-white rounded-lg border border-emerald-100 flex items-start';
+                    }
+                }
+
+                // Pantau perubahan pada nilai saldo desa
+                const observer = new MutationObserver(function(mutations) {
+                    mutations.forEach(function(mutation) {
+                        if (mutation.type === 'characterData' || mutation.type === 'childList') {
+                            const saldoElement = document.getElementById('saldo-desa');
+                            if (saldoElement) {
+                                const saldoText = saldoElement.textContent;
+                                // Periksa apakah saldo negatif (defisit)
+                                const isDeficit = saldoText.includes('-');
+                                updateStatusColors(isDeficit);
+                            }
+                        }
+                    });
+                });
+
+                // Mulai observasi
+                const saldoElement = document.getElementById('saldo-desa');
+                if (saldoElement) {
+                    observer.observe(saldoElement, { childList: true, characterData: true, subtree: true });
+                    // Periksa nilai awal
+                    const isDeficit = saldoElement.textContent.includes('-');
+                    updateStatusColors(isDeficit);
+                }
+
+                // Custom handling for periode buttons if Alpine.js isn't closing the dropdown
+                document.querySelectorAll('.periode-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Semua dropdowns yang mungkin terbuka (jika ada multiple)
+                        document.querySelectorAll('[x-data]').forEach(dropdown => {
+                            if (dropdown.__x) {
+                                dropdown.__x.$data.open = false;
+                            }
+                        });
+
+                        // Update selected text
+                        const periodText = this.innerText.trim();
+                        document.getElementById('selected-periode').textContent = periodText;
+
+                        // Handle custom date range visibility
+                        if (this.getAttribute('data-periode') === 'kustom') {
+                            document.getElementById('date-range-picker').classList.remove('hidden');
+                        } else {
+                            document.getElementById('date-range-picker').classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
 document.addEventListener('DOMContentLoaded', function() {
     // Tab Navigation
     const tabButtons = document.querySelectorAll('.tab-button');

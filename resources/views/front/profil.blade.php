@@ -196,7 +196,10 @@
                             </div>
 
                             <!-- Image Slider for Thumbnails -->
-                            <div x-data="imageSlider" class="relative mb-4 rounded-lg overflow-hidden shadow-sm">
+                            <div
+                                x-data="imageSlider"
+                                data-total-images="{{ $profilDesa && $profilDesa->thumbnails && is_array($profilDesa->thumbnails) ? count($profilDesa->thumbnails) : 1 }}"
+                                class="relative mb-4 rounded-lg overflow-hidden shadow-sm">
                                 <!-- Main Slider Container -->
                                 <div class="relative aspect-w-16 aspect-h-9 bg-gray-100">
                                     <!-- Images -->
@@ -1022,119 +1025,4 @@
         </div>
     </section>
 </div>
-
-<script>
-document.addEventListener('alpine:init', () => {
-    Alpine.data('tabNavigation', () => ({
-        activeTab: 'about',
-        init() {
-            // Set active tab from URL hash if available
-            const hash = window.location.hash.substring(1);
-            if (['about', 'vision', 'history', 'structure', 'geography'].includes(hash)) {
-                this.activeTab = hash;
-                this.$nextTick(() => this.scrollToActiveTab());
-            }
-
-            // Update URL when tab changes
-            this.$watch('activeTab', value => {
-                history.replaceState(null, null, value ? `#${value}` : window.location.pathname);
-                this.scrollToActiveTab();
-            });
-        },
-        scrollToActiveTab() {
-            setTimeout(() => {
-                const activeTabEl = document.getElementById('tab-' + this.activeTab);
-                if (activeTabEl) {
-                    // Scroll the tab into center view
-                    const container = document.getElementById('tabPills');
-                    const containerWidth = container.offsetWidth;
-                    const tabWidth = activeTabEl.offsetWidth;
-                    const tabLeft = activeTabEl.offsetLeft;
-
-                    container.scrollTo({
-                        left: tabLeft - (containerWidth / 2) + (tabWidth / 2),
-                        behavior: 'smooth'
-                    });
-                }
-            }, 50);
-        }
-    }));
-
-    Alpine.data('imageSlider', () => ({
-        currentIndex: 0,
-        totalImages: {{ $profilDesa && $profilDesa->thumbnails && is_array($profilDesa->thumbnails) ? count($profilDesa->thumbnails) : 1 }},
-        touchStartX: 0,
-        touchEndX: 0,
-
-        init() {
-            // Auto-advance slides every 5 seconds if there are multiple images
-            if (this.totalImages > 1) {
-                this.startAutoSlide();
-            }
-        },
-
-        startAutoSlide() {
-            this.autoSlideInterval = setInterval(() => {
-                this.next();
-            }, 5000);
-        },
-
-        stopAutoSlide() {
-            if (this.autoSlideInterval) {
-                clearInterval(this.autoSlideInterval);
-            }
-        },
-
-        next() {
-            this.stopAutoSlide();
-            this.currentIndex = (this.currentIndex + 1) % this.totalImages;
-            this.startAutoSlide();
-        },
-
-        prev() {
-            this.stopAutoSlide();
-            this.currentIndex = (this.currentIndex - 1 + this.totalImages) % this.totalImages;
-            this.startAutoSlide();
-        },
-
-        touchStart(e) {
-            this.touchStartX = e.changedTouches[0].screenX;
-        },
-
-        touchEnd(e) {
-            this.touchEndX = e.changedTouches[0].screenX;
-            this.handleSwipe();
-        },
-
-        handleSwipe() {
-            const threshold = 50;
-            const swipeDistance = this.touchEndX - this.touchStartX;
-
-            if (swipeDistance > threshold) {
-                // Swiped right, go to previous
-                this.prev();
-            } else if (swipeDistance < -threshold) {
-                // Swiped left, go to next
-                this.next();
-            }
-        }
-    }));
-});
-</script>
-
-<style>
-/* Hide scrollbar for clean look */
-.scrollbar-hide::-webkit-scrollbar {
-    display: none;
-}
-.scrollbar-hide {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-}
-
-/* Add touch scroll momentum for mobile */
-#tabPills {
-    -webkit-overflow-scrolling: touch;
-}
-</style>
 @endsection

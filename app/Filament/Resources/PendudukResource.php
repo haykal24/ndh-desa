@@ -21,6 +21,8 @@ use Filament\Infolists\Infolist;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Collection;
 use Carbon\Carbon;
+use App\Filament\Imports\PendudukImporter;
+use Filament\Tables\Actions\ImportAction;
 
 class PendudukResource extends Resource
 {
@@ -338,6 +340,98 @@ class PendudukResource extends Resource
                         'O+' => 'O+',
                         'O-' => 'O-',
                     ]),
+            ])
+            ->headerActions([
+                // Tombol download template baru
+                Tables\Actions\Action::make('downloadTemplate')
+                    ->label('Download Template')
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->color('primary')
+                    ->action(function () {
+                        // Buat CSV dari kolom-kolom di importer
+                        $columns = array_map(function ($column) {
+                            return $column->getName();
+                        }, PendudukImporter::getColumns());
+
+                        // Buat contoh data untuk template
+                        $exampleData = [
+                            [
+                                'nik' => '3501020304050607',
+                                'kk' => '3501020304050001',
+                                'nama' => 'Budi Santoso',
+                                'jenis_kelamin' => 'L',
+                                'agama' => 'Islam',
+                                'tempat_lahir' => 'Jakarta',
+                                'tanggal_lahir' => '1990-01-01',
+                                'golongan_darah' => 'O',
+                                'alamat' => 'Jl. Contoh No. 123',
+                                'rt_rw' => '001/002',
+                                'desa_kelurahan' => 'Sukamaju',
+                                'kecamatan' => 'Cianjur',
+                                'kabupaten' => 'Bandung',
+                                'kepala_keluarga' => '1',
+                                'status_perkawinan' => 'Kawin',
+                                'pekerjaan' => 'Pegawai Swasta',
+                                'pendidikan' => 'SMA/Sederajat',
+                                'no_hp' => '081234567890',
+                                'email' => 'contoh@email.com',
+                            ],
+                            [
+                                'nik' => '3501020304050608',
+                                'kk' => '3501020304050001',
+                                'nama' => 'Siti Rahayu',
+                                'jenis_kelamin' => 'P',
+                                'agama' => 'Islam',
+                                'tempat_lahir' => 'Bandung',
+                                'tanggal_lahir' => '1992-05-15',
+                                'golongan_darah' => 'A',
+                                'alamat' => 'Jl. Contoh No. 123',
+                                'rt_rw' => '001/002',
+                                'desa_kelurahan' => 'Sukamaju',
+                                'kecamatan' => 'Cianjur',
+                                'kabupaten' => 'Bandung',
+                                'kepala_keluarga' => '0',
+                                'status_perkawinan' => 'Kawin',
+                                'pekerjaan' => 'Guru',
+                                'pendidikan' => 'D4/S1',
+                                'no_hp' => '081234567891',
+                                'email' => 'siti@email.com',
+                            ],
+                        ];
+
+                        // Buat file CSV
+                        $filename = 'template_import_penduduk.csv';
+                        $path = storage_path('app/' . $filename);
+
+                        $handle = fopen($path, 'w');
+
+                        // Tulis header
+                        fputcsv($handle, $columns);
+
+                        // Tulis contoh data
+                        foreach ($exampleData as $row) {
+                            $rowData = [];
+                            foreach ($columns as $column) {
+                                $rowData[] = $row[$column] ?? '';
+                            }
+                            fputcsv($handle, $rowData);
+                        }
+
+                        fclose($handle);
+
+                        return response()->download($path, $filename, [
+                            'Content-Type' => 'text/csv',
+                        ])->deleteFileAfterSend();
+                    }),
+
+                // Tombol import yang sudah ada
+                ImportAction::make()
+                    ->importer(PendudukImporter::class)
+                    ->chunkSize(100)
+                    ->maxRows(1000)
+                    ->icon('heroicon-o-document-arrow-down')
+                    ->color('success')
+                    ->label('Impor Penduduk'),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),

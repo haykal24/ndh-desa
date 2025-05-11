@@ -57,8 +57,8 @@
 <div class="w-full relative">
     @if($berita->gambar)
     <div class="w-full h-[300px] md:h-[400px] lg:h-[450px] overflow-hidden">
-        <img src="{{ Storage::url($berita->gambar) }}" 
-             alt="{{ $berita->judul }}" 
+        <img src="{{ Storage::url($berita->gambar) }}"
+             alt="{{ $berita->judul }}"
              class="w-full h-full object-cover">
     </div>
     @else
@@ -96,18 +96,18 @@
                             default => 'fa-tag',
                         };
                     @endphp
-                    
-                    <a href="{{ route('berita', ['kategori' => $berita->kategori]) }}" 
+
+                    <a href="{{ route('berita', ['kategori' => $berita->kategori]) }}"
                        class="inline-flex items-center px-2.5 py-1.5 rounded-md text-xs font-medium text-white {{ $styles }} shadow-md border-l-4 mb-4">
                         <i class="fas {{ $icon }} mr-1"></i>
                         <span>{{ $berita->kategori ?? 'Berita' }}</span>
                     </a>
-                    
+
                     <!-- Title with Reduced Size -->
                     <h1 class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 leading-tight mb-6">
                         {{ $berita->judul }}
                     </h1>
-                    
+
                     <!-- Date & Share Button Row - Properly Aligned -->
                     <div class="flex items-center justify-between border-b border-gray-100 pb-5">
                         <!-- Date -->
@@ -115,17 +115,17 @@
                             <i class="far fa-calendar text-emerald-600"></i>
                             <span class="text-sm">{{ $berita->created_at->locale('id')->isoFormat('DD MMMM YYYY') }}</span>
                         </div>
-                        
+
                         <!-- Share Button -->
                         <div x-data="{ shareOpen: false }" class="relative">
-                            <button @click="shareOpen = !shareOpen" 
+                            <button @click="shareOpen = !shareOpen"
                                     class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-50 hover:bg-emerald-50 text-gray-500 hover:text-emerald-500 transition-colors">
                                 <i class="fas fa-share-alt text-[14px]"></i>
                                 <span class="text-sm font-medium">Bagikan</span>
                             </button>
 
                             <!-- Share Menu -->
-                            <div x-show="shareOpen" 
+                            <div x-show="shareOpen"
                                  x-transition:enter="transition ease-out duration-200"
                                  x-transition:enter-start="opacity-0 scale-95"
                                  x-transition:enter-end="opacity-100 scale-100"
@@ -134,8 +134,8 @@
                                  x-transition:leave-end="opacity-0 scale-95"
                                  @click.away="shareOpen = false"
                                  class="absolute z-50 right-0 mt-2 bg-white rounded-xl shadow-lg border border-gray-100 w-48 p-1.5">
-                                
-                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('berita.show', $berita->id)) }}" 
+
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('berita.show', $berita->id)) }}"
                                    target="_blank" rel="noopener"
                                    class="flex items-center gap-3 p-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors group">
                                     <span class="w-8 h-8 flex items-center justify-center bg-blue-500/10 text-blue-500 rounded-full group-hover:scale-110 transition-transform">
@@ -143,8 +143,8 @@
                                     </span>
                                     <span class="font-medium">Facebook</span>
                                 </a>
-                                
-                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('berita.show', $berita->id)) }}&text={{ urlencode($berita->judul) }}" 
+
+                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('berita.show', $berita->id)) }}&text={{ urlencode($berita->judul) }}"
                                    target="_blank" rel="noopener"
                                    class="flex items-center gap-3 p-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors group">
                                     <span class="w-8 h-8 flex items-center justify-center bg-sky-500/10 text-sky-500 rounded-full group-hover:scale-110 transition-transform">
@@ -152,8 +152,8 @@
                                     </span>
                                     <span class="font-medium">Twitter</span>
                                 </a>
-                                
-                                <a href="https://wa.me/?text={{ urlencode($berita->judul . ' - ' . route('berita.show', $berita->id)) }}" 
+
+                                <a href="https://wa.me/?text={{ urlencode($berita->judul . ' - ' . route('berita.show', $berita->id)) }}"
                                    target="_blank" rel="noopener"
                                    class="flex items-center gap-3 p-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors group">
                                     <span class="w-8 h-8 flex items-center justify-center bg-green-500/10 text-green-500 rounded-full group-hover:scale-110 transition-transform">
@@ -161,8 +161,8 @@
                                     </span>
                                     <span class="font-medium">WhatsApp</span>
                                 </a>
-                                
-                                <a href="https://t.me/share/url?url={{ urlencode(route('berita.show', $berita->id)) }}&text={{ urlencode($berita->judul) }}" 
+
+                                <a href="https://t.me/share/url?url={{ urlencode(route('berita.show', $berita->id)) }}&text={{ urlencode($berita->judul) }}"
                                    target="_blank" rel="noopener"
                                    class="flex items-center gap-3 p-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors group">
                                     <span class="w-8 h-8 flex items-center justify-center bg-blue-400/10 text-blue-400 rounded-full group-hover:scale-110 transition-transform">
@@ -170,8 +170,8 @@
                                     </span>
                                     <span class="font-medium">Telegram</span>
                                 </a>
-                                
-                                <button onclick="copyToClipboard('{{ route('berita.show', $berita->id) }}')" 
+
+                                <button onclick="copyToClipboard('{{ route('berita.show', $berita->id) }}')"
                                         class="flex items-center gap-3 p-2 text-sm text-gray-600 hover:bg-gray-50 rounded-lg transition-colors w-full group">
                                     <span class="w-8 h-8 flex items-center justify-center bg-gray-500/10 text-gray-500 rounded-full group-hover:scale-110 transition-transform">
                                         <i class="far fa-copy text-[16px]"></i>
@@ -182,12 +182,12 @@
                         </div>
                     </div>
                 </div>
-                    
+
                 <!-- Article Content -->
                 <div class="prose prose-emerald lg:prose-lg max-w-none mx-auto mb-10">
                     {!! $berita->isi !!}
                 </div>
-                
+
                 <!-- Author Section (Moved to below content) -->
                 <div class="border-t border-gray-100 pt-6 mt-10">
                     <div class="flex items-center gap-4">
@@ -197,7 +197,7 @@
                             </div>
                             <div class="absolute -bottom-1 -right-1 h-4 w-4 md:h-5 md:w-5 bg-green-500 border-[3px] border-white rounded-full shadow-sm"></div>
                         </div>
-                        
+
                         <div class="min-w-0">
                             <div class="flex items-center flex-wrap gap-2">
                                 <h3 class="text-base md:text-lg font-bold text-gray-900 break-words">{{ $berita->creator->name ?? 'Admin' }}</h3>
@@ -213,7 +213,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Sidebar Column -->
             <div class="lg:col-span-1">
                 <!-- Berita Terkait -->
@@ -268,7 +268,7 @@
                                 'Kesehatan' => 'bg-sky-50 text-sky-600',
                                 'Pendidikan' => 'bg-purple-50 text-purple-600',
                             ];
-                            
+
                             $icons = [
                                 'Umum' => 'fa-globe',
                                 'Pengumuman' => 'fa-bullhorn',
@@ -278,9 +278,9 @@
                                 'Pendidikan' => 'fa-graduation-cap',
                             ];
                         @endphp
-                        
+
                         @foreach($kategoriList as $key => $value)
-                            <a href="{{ route('berita', ['kategori' => $key]) }}" 
+                            <a href="{{ route('berita', ['kategori' => $key]) }}"
                                class="px-3 py-1.5 text-xs rounded-md transition-all duration-300 hover:-translate-y-0.5 inline-flex items-center gap-1.5 {{ $value }}">
                                 <i class="fas {{ $icons[$key] ?? 'fa-tag' }} text-[10px]"></i>
                                 {{ $key }}
@@ -295,111 +295,5 @@
 @endsection
 
 @push('styles')
-<style>
-    .shadow-text {
-        text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-    }
-    
-    /* Typography enhancements for content */
-    .prose {
-        @apply text-gray-700;
-    }
 
-    .prose img {
-        @apply rounded-lg shadow-sm hover:shadow-md transition-all duration-300 my-6 mx-auto;
-        max-width: 100%;
-        height: auto;
-    }
-    
-    .prose h2 {
-        @apply text-xl font-bold text-gray-800 mt-10 mb-4;
-    }
-    
-    .prose h3 {
-        @apply text-lg font-semibold text-gray-800 mt-8 mb-4;
-    }
-    
-    .prose p {
-        @apply text-gray-700 leading-relaxed mb-6;
-    }
-    
-    .prose a {
-        @apply text-emerald-600 hover:text-emerald-700 transition-colors;
-    }
-    
-    .prose ul, .prose ol {
-        @apply pl-8 my-4;
-    }
-
-    .prose ul li, .prose ol li {
-        @apply mb-2;
-    }
-    
-    .prose blockquote {
-        @apply border-l-4 border-emerald-400 bg-emerald-50/50 pl-4 py-2 pr-2 my-4 italic text-gray-700;
-    }
-
-    .prose ul {
-        list-style-type: disc !important;
-    }
-
-    .prose ol {
-        list-style-type: decimal !important;
-    }
-</style>
 @endpush
-
-@push('scripts')
-<script>
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text)
-            .then(() => {
-                // Show success toast
-                const toast = document.createElement('div');
-                toast.className = 'fixed bottom-4 right-4 bg-gray-900 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 animate-fade-in z-50';
-                toast.innerHTML = `
-                    <i class="fas fa-check text-emerald-400"></i>
-                    <span>Link berhasil disalin!</span>
-                `;
-                document.body.appendChild(toast);
-
-                // Remove toast after 2 seconds
-                setTimeout(() => {
-                    toast.classList.add('animate-fade-out');
-                    setTimeout(() => toast.remove(), 300);
-                }, 2000);
-            })
-            .catch(console.error);
-    }
-
-    document.addEventListener('DOMContentLoaded', function() {
-        // Enhance all images in the content
-        const contentImages = document.querySelectorAll('.prose img');
-        contentImages.forEach(img => {
-            img.classList.add('rounded-lg', 'shadow-sm', 'hover:shadow-md', 'transition-shadow');
-            img.style.maxWidth = '100%';
-            img.style.height = 'auto';
-        });
-    });
-</script>
-
-<style>
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeOut {
-        from { opacity: 1; transform: translateY(0); }
-        to { opacity: 0; transform: translateY(10px); }
-    }
-
-    .animate-fade-in {
-        animation: fadeIn 0.2s ease-out forwards;
-    }
-
-    .animate-fade-out {
-        animation: fadeOut 0.2s ease-out forwards;
-    }
-</style>
-@endpush 

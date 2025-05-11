@@ -59,8 +59,8 @@
                 <div class="w-full h-full relative rounded-xl overflow-hidden">
                     @if($umkm->foto_usaha)
                         <div class="w-full h-full aspect-[16/9] overflow-hidden">
-                            <img src="{{ Storage::url($umkm->foto_usaha) }}" 
-                                 alt="{{ $umkm->nama_usaha }}" 
+                            <img src="{{ Storage::url($umkm->foto_usaha) }}"
+                                 alt="{{ $umkm->nama_usaha }}"
                                  class="w-full h-full object-cover object-center">
                         </div>
                     @else
@@ -82,7 +82,7 @@
                     @endif
                 </div>
             </div>
-            
+
             <!-- Right Column: Sidebar -->
             <div class="lg:col-span-1">
                 <div class="bg-white rounded-xl shadow-sm h-full flex flex-col">
@@ -97,7 +97,7 @@
                                 'Jasa' => 'red',
                                 'Lainnya' => 'gray',
                             ];
-                            
+
                             $kategoriIcons = [
                                 'Kuliner' => 'fas fa-utensils',
                                 'Kerajinan' => 'fas fa-hands',
@@ -107,17 +107,17 @@
                                 'Lainnya' => 'fas fa-store',
                             ];
                         @endphp
-                        
+
                         <div class="flex justify-between items-center mb-4">
                             <!-- Category Badge -->
-                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium 
-                                    bg-{{ $kategoriColors[$umkm->kategori] ?? 'emerald' }}-100 
+                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium
+                                    bg-{{ $kategoriColors[$umkm->kategori] ?? 'emerald' }}-100
                                     text-{{ $kategoriColors[$umkm->kategori] ?? 'emerald' }}-800
                                     border border-{{ $kategoriColors[$umkm->kategori] ?? 'emerald' }}-200">
                                 <i class="{{ $kategoriIcons[$umkm->kategori] ?? 'fas fa-store' }} mr-1.5"></i>
                                 {{ $umkm->kategori }}
                             </span>
-                            
+
                             <!-- Verification Badge -->
                             @if($umkm->is_verified)
                             <div class="flex items-center text-xs font-medium px-2.5 py-1.5 rounded-md border border-blue-100 bg-blue-50 text-blue-700">
@@ -129,7 +129,7 @@
                             @endif
                         </div>
                     </div>
-                    
+
                     <div class="p-5 flex-grow border-x border-b border-gray-100 rounded-b-xl">
                         <!-- Owner Info -->
                         @if($umkm->penduduk)
@@ -138,8 +138,8 @@
                                 <div class="flex-shrink-0">
                                     @if($umkm->penduduk->user && $umkm->penduduk->user->profile_photo_path)
                                         <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-white shadow-sm">
-                                            <img src="{{ Storage::url($umkm->penduduk->user->profile_photo_path) }}" 
-                                                 alt="{{ $umkm->penduduk->nama }}" 
+                                            <img src="{{ Storage::url($umkm->penduduk->user->profile_photo_path) }}"
+                                                 alt="{{ $umkm->penduduk->nama }}"
                                                  class="w-full h-full object-cover">
                                         </div>
                                     @else
@@ -160,50 +160,50 @@
                             </div>
                         </div>
                         @endif
-                        
+
                         <!-- WhatsApp Contact -->
                         <div class="mb-6 pb-6 border-b border-gray-100">
-                            <a href="https://wa.me/{{ $umkm->kontak_whatsapp }}" 
+                            <a href="https://wa.me/{{ $umkm->kontak_whatsapp }}"
                                target="_blank"
                                class="w-full flex items-center justify-center gap-2 px-4 py-3.5 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg hover:shadow-md transition-all duration-300 hover:-translate-y-0.5">
                                 <i class="fab fa-whatsapp text-xl"></i>
                                 <span class="font-medium">Hubungi via WhatsApp</span>
                             </a>
                         </div>
-                        
+
                         <!-- Share Section - Modern Design -->
                         <div class="relative z-50">
                             <h3 class="text-sm uppercase tracking-wide text-gray-500 mb-3 flex items-center">
                                 <i class="fas fa-share-alt text-emerald-500 mr-2"></i>
                                 Bagikan UMKM
                             </h3>
-                            
+
                             <div class="flex flex-wrap gap-2">
-                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('umkm.show', $umkm->id)) }}" 
+                                <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('umkm.show', $umkm->id)) }}"
                                    target="_blank" rel="noopener"
                                    class="w-10 h-10 flex items-center justify-center bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors hover:shadow-md hover:scale-110 transition-transform duration-300">
                                     <i class="fab fa-facebook-f"></i>
                                 </a>
-                                
-                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('umkm.show', $umkm->id)) }}&text={{ urlencode($umkm->nama_usaha . ' - UMKM ' . ($profilDesa->nama_desa ?? 'Desa')) }}" 
+
+                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('umkm.show', $umkm->id)) }}&text={{ urlencode($umkm->nama_usaha . ' - UMKM ' . ($profilDesa->nama_desa ?? 'Desa')) }}"
                                    target="_blank" rel="noopener"
                                    class="w-10 h-10 flex items-center justify-center bg-sky-500 text-white rounded-full hover:bg-sky-600 transition-colors hover:shadow-md hover:scale-110 transition-transform duration-300">
                                     <i class="fab fa-twitter"></i>
                                 </a>
-                                
-                                <a href="https://wa.me/?text={{ urlencode($umkm->nama_usaha . ' - UMKM ' . ($profilDesa->nama_desa ?? 'Desa') . ' ' . route('umkm.show', $umkm->id)) }}" 
+
+                                <a href="https://wa.me/?text={{ urlencode($umkm->nama_usaha . ' - UMKM ' . ($profilDesa->nama_desa ?? 'Desa') . ' ' . route('umkm.show', $umkm->id)) }}"
                                    target="_blank" rel="noopener"
                                    class="w-10 h-10 flex items-center justify-center bg-green-500 text-white rounded-full hover:bg-green-600 transition-colors hover:shadow-md hover:scale-110 transition-transform duration-300">
                                     <i class="fab fa-whatsapp"></i>
                                 </a>
-                                
-                                <a href="https://t.me/share/url?url={{ urlencode(route('umkm.show', $umkm->id)) }}&text={{ urlencode($umkm->nama_usaha . ' - UMKM ' . ($profilDesa->nama_desa ?? 'Desa')) }}" 
+
+                                <a href="https://t.me/share/url?url={{ urlencode(route('umkm.show', $umkm->id)) }}&text={{ urlencode($umkm->nama_usaha . ' - UMKM ' . ($profilDesa->nama_desa ?? 'Desa')) }}"
                                    target="_blank" rel="noopener"
                                    class="w-10 h-10 flex items-center justify-center bg-blue-400 text-white rounded-full hover:bg-blue-500 transition-colors hover:shadow-md hover:scale-110 transition-transform duration-300">
                                     <i class="fab fa-telegram"></i>
                                 </a>
-                                
-                                <button onclick="copyToClipboard('{{ route('umkm.show', $umkm->id) }}')" 
+
+                                <button onclick="copyToClipboard('{{ route('umkm.show', $umkm->id) }}')"
                                        class="w-10 h-10 flex items-center justify-center bg-gray-500 text-white rounded-full hover:bg-gray-600 transition-colors hover:shadow-md hover:scale-110 transition-transform duration-300">
                                     <i class="far fa-copy"></i>
                                 </button>
@@ -213,20 +213,20 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Business Details Section - Full Width -->
         <div class="bg-gray-50 rounded-xl shadow-sm border border-gray-100 p-6 mb-8">
             <!-- Business Name and About Section -->
             <div class="mb-3">
                 <h1 class="text-2xl font-bold text-gray-900 ">{{ $umkm->nama_usaha }}</h1>
-                
+
                 @if($umkm->deskripsi)
                 <div class="prose max-w-none text-gray-600 ">
                     <p class="leading-relaxed">{{ $umkm->deskripsi }}</p>
                 </div>
                 @endif
             </div>
-            
+
             <!-- Product Info -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="bg-white rounded-lg p-5 border border-gray-100 hover:shadow-md transition-shadow">
@@ -240,7 +240,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Location -->
                 <div class="bg-white rounded-lg p-5 border border-gray-100 hover:shadow-md transition-shadow">
                     <div class="flex">
@@ -258,44 +258,6 @@
     </div>
 </div>
 
-<!-- Copy to Clipboard Script -->
-<script>
-    function copyToClipboard(text) {
-        navigator.clipboard.writeText(text)
-            .then(() => {
-                // Show toast notification
-                const toast = document.createElement('div');
-                toast.className = 'fixed bottom-4 right-4 bg-gray-800 text-white py-2 px-4 rounded-lg flex items-center gap-2 z-50 animate-fade-in';
-                toast.innerHTML = '<svg class="w-5 h-5 mr-2 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg> Link disalin!';
-                document.body.appendChild(toast);
-                
-                setTimeout(() => {
-                    toast.classList.add('animate-fade-out');
-                    setTimeout(() => document.body.removeChild(toast), 300);
-                }, 2000);
-            });
-    }
-</script>
-
-<style>
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    @keyframes fadeOut {
-        from { opacity: 1; transform: translateY(0); }
-        to { opacity: 0; transform: translateY(10px); }
-    }
-
-    .animate-fade-in {
-        animation: fadeIn 0.2s ease-out forwards;
-    }
-
-    .animate-fade-out {
-        animation: fadeOut 0.2s ease-out forwards;
-    }
-</style>
 
 <!-- UMKM Terkait -->
 @if(count($umkmLainnya) > 0)
@@ -315,7 +277,7 @@
                         UMKM TERKAIT
                     </span>
                 </div>
-                
+
                 <!-- Right: Simplified Button -->
                 <a href="{{ route('umkm') }}" class="flex-shrink-0 inline-flex items-center text-sm font-medium text-emerald-600 border border-emerald-200 rounded-lg px-3 py-1.5 hover:bg-emerald-50 transition-colors">
                     <span>Lihat Semua</span>
@@ -324,23 +286,23 @@
                     </svg>
                 </a>
             </div>
-            
+
             <!-- Description on Full Row -->
             <p class="text-gray-600 text-sm md:text-base w-full">
                 Produk dan layanan serupa yang mungkin anda minati
             </p>
         </div>
-        
+
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             @foreach($umkmLainnya as $item)
                 <div class="group bg-white rounded-2xl shadow-sm overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-lg relative border border-gray-100" data-aos="fade-up" data-aos-delay="{{ $loop->index * 50 }}">
                     <!-- Enhanced Image Container with Overlay Gradient -->
                     <div class="relative aspect-w-16 aspect-h-9 overflow-hidden">
                         @if($item->foto_usaha)
-                            <img src="{{ Storage::url($item->foto_usaha) }}" 
-                                 alt="{{ $item->nama_usaha }}" 
+                            <img src="{{ Storage::url($item->foto_usaha) }}"
+                                 alt="{{ $item->nama_usaha }}"
                                  class="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105">
-                            
+
                             <!-- Gradient Overlay -->
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         @else
@@ -349,20 +311,20 @@
                             </div>
                         @endif
                     </div>
-                    
+
                     <!-- Modern Content Area -->
                     <div class="p-6 flex flex-col flex-grow relative bg-white">
                         <!-- Modern Category and Info Row -->
                         <div class="flex items-center justify-between mb-4 relative z-10">
                             <!-- Left: Category Badge - Enhanced Design -->
-                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium 
-                                text-{{ $kategoriColors[$item->kategori] ?? 'emerald' }}-700 
-                                bg-{{ $kategoriColors[$item->kategori] ?? 'emerald' }}-50 
+                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium
+                                text-{{ $kategoriColors[$item->kategori] ?? 'emerald' }}-700
+                                bg-{{ $kategoriColors[$item->kategori] ?? 'emerald' }}-50
                                 border border-{{ $kategoriColors[$item->kategori] ?? 'emerald' }}-100 shadow-sm">
                                 <i class="{{ $kategoriIcons[$item->kategori] ?? 'fas fa-store' }} text-{{ $kategoriColors[$item->kategori] ?? 'emerald' }}-500 mr-1.5"></i>
                                 {{ $item->kategori }}
                             </span>
-                            
+
                             <!-- Right: UMKM Badge -->
                             @if($item->is_verified)
                             <div class="flex items-center text-xs font-medium px-2.5 py-1.5 rounded-md border border-blue-100 bg-blue-50 text-blue-700">
@@ -373,7 +335,7 @@
                             </div>
                             @endif
                         </div>
-                        
+
                         <!-- Enhanced Title with Modern Typography -->
                         <a href="{{ route('umkm.show', $item->id) }}" class="block group relative z-10">
                             <!-- Modern Title Design with Gradient Accent -->
@@ -382,14 +344,14 @@
                                 {{ $item->nama_usaha }}
                             </h3>
                         </a>
-                        
+
                         <!-- Modern Description with Premium Typography -->
                         <div class="mt-1 relative z-10">
                             <p class="text-gray-600 text-sm leading-relaxed mb-5 pl-3 border-l-2 border-emerald-200 line-clamp-2 after:content-['...']">
                                 {{ $item->produk }}
                             </p>
                         </div>
-                        
+
                         <!-- Location Information -->
                         <div class="flex items-start mt-1 mb-4">
                             <span class="text-emerald-500 mr-2 mt-0.5">
@@ -402,16 +364,16 @@
                                 {{ $item->lokasi ?: 'Lokasi belum diisi' }}
                             </p>
                         </div>
-                        
+
                         <!-- Enhanced Action Buttons with Modern Design -->
                         <div class="mt-auto pt-4 border-t border-dashed border-gray-200 flex justify-between items-center relative z-10">
                             <!-- WhatsApp Button -->
-                            <a href="https://wa.me/{{ $item->kontak_whatsapp }}" target="_blank" 
+                            <a href="https://wa.me/{{ $item->kontak_whatsapp }}" target="_blank"
                                class="inline-flex items-center bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-medium text-sm rounded-lg px-4 py-2 transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5">
                                 <i class="fab fa-whatsapp mr-1.5 text-white"></i>
                                 <span>WhatsApp</span>
                             </a>
-                            
+
                             <!-- Detailed Link -->
                             <a href="{{ route('umkm.show', $item->id) }}" class="inline-flex items-center text-emerald-600 font-medium text-sm transition-colors duration-300 group/detail hover:text-emerald-700">
                                 <span class="relative">
@@ -430,4 +392,4 @@
     </div>
 </section>
 @endif
-@endsection 
+@endsection

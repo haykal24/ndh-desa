@@ -335,7 +335,7 @@
 
         @else
             <!-- Empty State - Modernized -->
-            <div class="bg-gray-50 rounded-xl shadow-sm border border-gray-100 p-12 text-center">
+            <div class="bg-gray-50 rounded-xl shadow-sm border border-gray-100 p-12 text-center mb-4">
                 <div class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
                     <i class="fas fa-newspaper text-gray-300 text-3xl"></i>
                 </div>

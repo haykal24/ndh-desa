@@ -45,23 +45,17 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
         <!-- Scripts & Styles -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/css/front.css', 'resources/js/app.js', 'resources/js/front.js'])
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
         <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-        <!-- AlpineJS -->
-        {{-- <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script> --}}
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-        @livewireStyles
-<style>
-    .prose {
-       text-align: justify;
-    }
+              <!-- Include Swiper.js from CDN -->
+              <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
-    .prose ol, .prose ul {
-       text-align: left;
-    }
-</style>
+
+        @livewireStyles
+
         <!-- Page Specific Styles -->
         @stack('styles')
     </head>
@@ -100,71 +94,16 @@
             <!-- Enhanced Footer -->
             <footer class="footer">
                 @include('front.partials.footer')
-
-
             </footer>
         </div>
 
         <!-- Scripts -->
         @livewireScripts
 
-        <!-- Enhanced Initialization Script -->
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                // Initialize AOS with better settings
-                AOS.init({
-                    duration: 800,
-                    once: true,
-                    offset: 100,
-                    easing: 'ease-in-out',
-                });
-
-                // Add smooth scrolling to all links
-                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                    anchor.addEventListener('click', function (e) {
-                        e.preventDefault();
-
-                        const target = document.querySelector(this.getAttribute('href'));
-                        if (target) {
-                            target.scrollIntoView({
-                                behavior: 'smooth',
-                                block: 'start'
-                            });
-                        }
-                    });
-                });
-            });
-
-            // Alpine.js Data
-            document.addEventListener('alpine:init', () => {
-                Alpine.data('navigation', () => ({
-                    mobileMenuOpen: false,
-                    scrolled: false,
-
-                    init() {
-                        window.addEventListener('scroll', () => {
-                            this.scrolled = window.scrollY > 20;
-                        });
-                    },
-
-                    toggleMobileMenu() {
-                        this.mobileMenuOpen = !this.mobileMenuOpen;
-
-                        if (this.mobileMenuOpen) {
-                            document.body.classList.add('overflow-hidden');
-                        } else {
-                            document.body.classList.remove('overflow-hidden');
-                        }
-                    }
-                }))
-            });
-        </script>
-
         <!-- Additional Scripts -->
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        @stack('scripts')
+        <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 
-        <!-- Include Lottie Animation Library -->
-        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        @stack('scripts')
     </body>
 </html>

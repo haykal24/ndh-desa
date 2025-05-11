@@ -222,8 +222,6 @@ body {
 /* Perbaikan untuk container utama */
 .max-w-7xl {
     max-width: 100% !important; /* Override ukuran fixed Tailwind jika perlu */
-    padding-left: 1rem;
-    padding-right: 1rem;
     box-sizing: border-box;
 }
 
@@ -236,4 +234,46 @@ body {
     .hero-pattern p {
         font-size: 1rem;
     }
+}
+
+   /* Smooth scroll behavior */
+   html {
+    scroll-behavior: smooth;
+}
+
+/* Hero pattern yang lebih halus */
+.hero-pattern {
+    position: relative;
+    background: linear-gradient(to right, rgba(6, 95, 70, 0.9), rgba(6, 95, 70, 0.7));
+}
+
+/* Efek hover pada dots vertikal */
+.dots-vertical button:hover span {
+    height: 8px;
+    opacity: 0.9;
+}
+
+/* Efek animasi untuk teks */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fadeInUp {
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.animate-slight-zoom {
+    animation: slightZoom 10s ease-out forwards;
+}
+
+@keyframes slightZoom {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.05); }
 }

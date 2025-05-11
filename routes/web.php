@@ -231,36 +231,41 @@ Route::middleware(['auth'])->group(function() {
 
 // Group all routes with the SecurityHeaders middleware
 Route::middleware([\App\Http\Middleware\SecurityHeaders::class])->group(function () {
-    // Static content routes
-    Route::get('/', [FrontController::class, 'home'])->name('home');
-    Route::get('/profil', [FrontController::class, 'profil'])->name('profil');
-    Route::get('/berita', [FrontController::class, 'berita'])->name('berita');
-    Route::get('/umkm', [FrontController::class, 'umkm'])->name('umkm');
-    Route::get('/layanan', [FrontController::class, 'layanan'])->name('layanan');
-    Route::get('/statistik', [FrontController::class, 'statistik'])->name('statistik');
+    // Static content routes - Updated for new controllers
+    Route::get('/', [\App\Http\Controllers\Front\HomeController::class, 'index'])->name('home');
+    Route::get('/profil', [\App\Http\Controllers\Front\ProfilController::class, 'index'])->name('profil');
+    Route::get('/berita', [\App\Http\Controllers\Front\BeritaController::class, 'index'])->name('berita');
+    Route::get('/umkm', [\App\Http\Controllers\Front\UmkmController::class, 'index'])->name('umkm');
+    Route::get('/layanan', [\App\Http\Controllers\Front\LayananController::class, 'index'])->name('layanan');
+    Route::get('/statistik', [\App\Http\Controllers\Front\StatistikController::class, 'index'])->name('statistik');
 
     // Dynamic content routes with parameter validation
-    Route::get('/umkm/{id}', [FrontController::class, 'umkmShow'])
+    Route::get('/umkm/{id}', [\App\Http\Controllers\Front\UmkmController::class, 'show'])
         ->where('id', '[0-9]+')
         ->name('umkm.show');
 
-    Route::get('/layanan/{id}', [FrontController::class, 'layananShow'])
+    Route::get('/layanan/{id}', [\App\Http\Controllers\Front\LayananController::class, 'show'])
         ->where('id', '[0-9]+')
         ->name('layanan.show');
 
-    Route::get('/berita/{id}', [FrontController::class, 'beritaShow'])
+    Route::get('/berita/{id}', [\App\Http\Controllers\Front\BeritaController::class, 'show'])
         ->where('id', '[0-9]+')
         ->name('berita.show');
 
     // API/data endpoints with built-in throttle middleware
     Route::middleware(['throttle:60,1'])->group(function () {
-        Route::get('/keuangan/data', [FrontController::class, 'keuanganData'])
+        Route::get('/keuangan/data', [\App\Http\Controllers\API\KeuanganController::class, 'getData'])
             ->name('keuangan.data');
 
-        Route::get('/bansos/data', [FrontController::class, 'bansosData'])
+        Route::get('/bansos/data', [\App\Http\Controllers\API\BansosController::class, 'getData'])
             ->name('bansos.data');
 
-        Route::get('/inventaris/data', [FrontController::class, 'inventarisData'])
+        Route::get('/inventaris/data', [\App\Http\Controllers\API\InventarisController::class, 'getData'])
             ->name('inventaris.data');
     });
+
+    // Cache clearing (admin only)
+    Route::post('/statistik/clear-cache', [\App\Http\Controllers\Front\StatistikController::class, 'clearDataCaches'])
+        ->middleware(['auth', 'role:admin'])
+        ->name('statistik.clear-cache');
 });
