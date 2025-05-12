@@ -13,7 +13,7 @@
 1. **Clone Repositori**
 
     ```bash
-    git clone <URL_REPOSITORI>
+    git clone [<URL_REPOSITORI>](https://github.com/haykal24/desa.git)
     cd <NAMA_DIRECTORY>
     ```
 
