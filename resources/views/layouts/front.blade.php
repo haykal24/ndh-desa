@@ -66,7 +66,7 @@
 
         <div class="min-h-screen flex flex-col">
             <!-- Enhanced Header/Navigation -->
-            <header class="header-nav">
+            <header class="fixed top-0 z-50 w-full header-nav">
                 @include('front.partials.navigation')
             </header>
 
