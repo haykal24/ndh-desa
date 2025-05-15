@@ -219,29 +219,6 @@ class PengajuanWargaResource extends Resource
                     ->since()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-
-                Tables\Columns\TextColumn::make('alasan_pengajuan')
-                    ->label('Alasan')
-                    ->limit(30)
-                    ->tooltip(function (Tables\Columns\TextColumn $column): ?string {
-                        $state = $column->getState();
-                        if (strlen($state) <= $column->getLimit()) {
-                            return null;
-                        }
-                        return $state;
-                    })
-                    ->toggleable(isToggledHiddenByDefault: true),
-
-                Tables\Columns\TextColumn::make('keterangan')
-                    ->limit(30)
-                    ->tooltip(function (Tables\Columns\TextColumn $column): ?string {
-                        $state = $column->getState();
-                        if (strlen($state) <= $column->getLimit()) {
-                            return null;
-                        }
-                        return $state;
-                    })
-                    ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
@@ -252,14 +229,6 @@ class PengajuanWargaResource extends Resource
                     ->options(JenisBansos::where('is_active', true)->pluck('nama_bansos', 'id'))
                     ->searchable(),
 
-                Tables\Filters\SelectFilter::make('bentuk_bantuan')
-                    ->label('Bentuk Bantuan')
-                    ->relationship('jenisBansos', 'bentuk_bantuan')
-                    ->options([
-                        'uang' => 'Uang',
-                        'barang' => 'Barang',
-                        'jasa' => 'Jasa',
-                    ]),
 
                 Tables\Filters\Filter::make('is_urgent')
                     ->label('Bantuan Mendesak')
