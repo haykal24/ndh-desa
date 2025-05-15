@@ -255,7 +255,7 @@
                                 </svg>
                             </div>
                             <div class="ml-3 sm:ml-4">
-                                <h5 class="text-xs sm:text-sm font-medium text-gray-500 mb-1 group-hover:text-teal-600 transition-all duration-300">Layanan</h5>
+                                <h5 class="text-xs sm:text-sm font-medium text-gray-500 mb-1 group-hover:text-teal-600 transition-all duration-300">Informasi Layanan</h5>
                                 <p class="text-xl sm:text-2xl font-bold text-gray-800">{{ isset($layanan) ? $layanan->count() : 0 }}</p>
                             </div>
                         </div>

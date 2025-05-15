@@ -4,6 +4,7 @@ namespace App\Livewire\Warga;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use App\Models\LayananDesa;
 
 class Dashboard extends Component
 {
@@ -11,6 +12,7 @@ class Dashboard extends Component
     public $bansos;
     public $pengaduan;
     public $umkm;
+    public $layanan;
     public $verifikasiPending;
 
     public function mount()
@@ -27,6 +29,9 @@ class Dashboard extends Component
             $this->pengaduan = $this->penduduk->pengaduan ?? collect();
             $this->umkm = $this->penduduk->umkm ?? collect();
         }
+
+        // Load all available layanan
+        $this->layanan = LayananDesa::all();
     }
 
     public function render()
