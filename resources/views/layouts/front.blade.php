@@ -79,7 +79,7 @@
 
             <!-- Modernized Breadcrumbs -->
             @hasSection('breadcrumbs')
-                <div class="bg-white border-b border-gray-100 py-2">
+                <div class="bg-white border-b border-gray-100 pt-16 pb-1">
                     <div class="w-full">
                         @yield('breadcrumbs')
                     </div>
