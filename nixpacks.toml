@@ -7,14 +7,11 @@ nixPkgs = ["php82", "nodejs_20"]
 [phases.install]
 cmds = [
   # Install Composer (nixpacks doesn't include composer in nixPkgs)
-  "curl -sS https://getcomposer.org/installer | php",
-  "chmod +x composer.phar",
-  "mv composer.phar /usr/local/bin/composer || cp composer.phar /usr/local/bin/composer || true",
-  "chmod +x /usr/local/bin/composer || true",
+  "curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer || true",
   # Copy .env.example to .env if .env doesn't exist
   "cp .env.example .env || true",
-  # Install Composer dependencies (use php composer.phar as fallback since each command runs in separate shell)
-  "php /usr/local/bin/composer install --no-dev --optimize-autoloader --no-interaction || php composer.phar install --no-dev --optimize-autoloader --no-interaction",
+  # Install Composer dependencies
+  "composer install --no-dev --optimize-autoloader --no-interaction",
   # Install npm dependencies
   "npm install --legacy-peer-deps",
   # Build Vite assets
@@ -23,10 +20,13 @@ cmds = [
 
 [phases.build]
 cmds = [
-  # Setup storage permissions
-  "chmod -R 775 storage bootstrap/cache || true",
-  # Create storage directories
+  # Create storage directories first
   "mkdir -p storage/framework/sessions storage/framework/views storage/framework/cache/data storage/logs storage/app/public || true",
+  # Setup storage permissions (775 for directories, 664 for files)
+  "chmod -R 775 storage bootstrap/cache || true",
+  "chmod -R 664 storage/logs/*.log 2>/dev/null || true",
+  "touch storage/logs/laravel.log || true",
+  "chmod 664 storage/logs/laravel.log || true",
   # Generate APP_KEY if not set (check if APP_KEY is empty or base64:)
   "php artisan key:generate --force || echo 'APP_KEY already exists or generation failed'",
   # Link storage
