@@ -1,0 +1,25 @@
+# Nixpacks configuration for Dokploy deployment (Laravel Backend)
+# This file helps Dokploy build the Laravel application correctly
+
+[phases.setup]
+nixPkgs = ["php82", "composer", "nodejs_20"]
+
+[phases.install]
+cmds = [
+  "composer install --no-dev --optimize-autoloader --no-interaction",
+  "npm install --legacy-peer-deps",
+  "npm run build"
+]
+
+[phases.build]
+cmds = [
+  "php artisan config:cache || true",
+  "php artisan route:cache || true",
+  "php artisan view:cache || true",
+  "php artisan event:cache || true",
+  "php artisan storage:link || true"
+]
+
+[start]
+cmd = "php artisan serve --host=0.0.0.0 --port=${PORT:-8000}"
+
