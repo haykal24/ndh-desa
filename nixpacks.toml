@@ -7,11 +7,14 @@ nixPkgs = ["php82", "nodejs_20"]
 [phases.install]
 cmds = [
   # Install Composer (nixpacks doesn't include composer in nixPkgs)
-  "curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer || true",
+  "curl -sS https://getcomposer.org/installer | php",
+  "chmod +x composer.phar",
+  "mv composer.phar /usr/local/bin/composer || cp composer.phar /usr/local/bin/composer || true",
+  "chmod +x /usr/local/bin/composer || true",
   # Copy .env.example to .env if .env doesn't exist
   "cp .env.example .env || true",
-  # Install Composer dependencies
-  "composer install --no-dev --optimize-autoloader --no-interaction",
+  # Install Composer dependencies (use php composer.phar as fallback since each command runs in separate shell)
+  "php /usr/local/bin/composer install --no-dev --optimize-autoloader --no-interaction || php composer.phar install --no-dev --optimize-autoloader --no-interaction",
   # Install npm dependencies
   "npm install --legacy-peer-deps",
   # Build Vite assets
