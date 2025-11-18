@@ -2,10 +2,12 @@
 # This file helps Dokploy build the Laravel application correctly
 
 [phases.setup]
-nixPkgs = ["php82", "composer", "nodejs_20"]
+nixPkgs = ["php82", "nodejs_20"]
 
 [phases.install]
 cmds = [
+  # Install Composer (nixpacks doesn't include composer in nixPkgs)
+  "curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer && chmod +x /usr/local/bin/composer || true",
   # Copy .env.example to .env if .env doesn't exist
   "cp .env.example .env || true",
   # Install Composer dependencies
