@@ -33,7 +33,7 @@ php artisan route:cache
 
 # Publish Filament assets
 echo "Publishing Filament assets..."
-php artisan filament:assets --force || true
+php artisan filament:assets || true
 
 # Cache views (skip if error)
 echo "Caching views..."

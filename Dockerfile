@@ -43,7 +43,7 @@ RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-di
 RUN npm ci && npm run build
 
 # Publish Filament assets
-RUN php artisan filament:assets --force || true
+RUN php artisan filament:assets || true
 
 # Switch back to root for nginx configuration
 USER root
