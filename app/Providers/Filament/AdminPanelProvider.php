@@ -17,7 +17,7 @@ use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Spatie\Permission\Middleware\RoleMiddleware;
+use App\Http\Middleware\EnsureAdminRole;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Navigation\MenuItem;
 use Filament\Enums\ThemeMode;
@@ -69,7 +69,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-                RoleMiddleware::class.':super_admin|admin',
+                EnsureAdminRole::class,
             ])
             ->plugins([
                 FilamentShieldPlugin::make()
