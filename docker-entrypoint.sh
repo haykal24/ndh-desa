@@ -61,6 +61,10 @@ chmod -R 755 /var/www/storage /var/www/bootstrap/cache
 echo "Clearing application cache..."
 php artisan cache:clear
 
+# Clear permission cache (important for Spatie Permission)
+echo "Clearing permission cache..."
+php artisan permission:cache-reset || true
+
 echo "Setup completed successfully!"
 
 # Test Nginx configuration
