@@ -27,9 +27,6 @@ class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
     {
-        // Log panel registration
-        error_log('[AdminPanelProvider] Registering admin panel');
-        
         return $panel
             ->default()
             ->id('admin')
@@ -75,8 +72,7 @@ class AdminPanelProvider extends PanelProvider
                 EnsureAdminRole::class,
             ])
             ->plugins([
-                // Temporarily disable Filament Shield to debug 403 issue
-                // FilamentShieldPlugin::make()
+                FilamentShieldPlugin::make()
             ])
             ->userMenuItems([
                 'logout' => MenuItem::make()

@@ -19,18 +19,9 @@ class User extends Authenticatable implements FilamentUser
 
     public function canAccessPanel(Panel $panel): bool
     {
-        // Log access check
-        error_log(sprintf(
-            '[User::canAccessPanel] Checking access for user: %s, Panel: %s', 
-            $this->email, 
-            $panel->getId()
-        ));
-
         // Allow access to admin panel for super_admin and admin
         if ($panel->getId() === 'admin') {
-            $hasAccess = $this->hasAnyRole(['super_admin', 'admin']);
-            error_log(sprintf('[User::canAccessPanel] Admin panel access: %s', $hasAccess ? 'YES' : 'NO'));
-            return $hasAccess;
+            return $this->hasAnyRole(['super_admin', 'admin']);
         }
 
         // Allow access to warga panel for everyone (or specific logic)
