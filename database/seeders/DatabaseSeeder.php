@@ -22,7 +22,14 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             RoleAndPermissionSeeder::class,
-            DummyDataSeeder::class,
         ]);
+
+        // Only run DummyDataSeeder in non-production environments
+        // (it requires Faker which is a dev dependency)
+        if (app()->environment(['local', 'testing', 'development'])) {
+            $this->call([
+                DummyDataSeeder::class,
+            ]);
+        }
     }
 }
