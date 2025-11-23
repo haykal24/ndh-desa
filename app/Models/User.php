@@ -9,11 +9,37 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasApiTokens, HasFactory, Notifiable, HasRoles;
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        // Log access check
+        error_log(sprintf(
+            '[User::canAccessPanel] Checking access for user: %s, Panel: %s', 
+            $this->email, 
+            $panel->getId()
+        ));
+
+        // Allow access to admin panel for super_admin and admin
+        if ($panel->getId() === 'admin') {
+            $hasAccess = $this->hasAnyRole(['super_admin', 'admin']);
+            error_log(sprintf('[User::canAccessPanel] Admin panel access: %s', $hasAccess ? 'YES' : 'NO'));
+            return $hasAccess;
+        }
+
+        // Allow access to warga panel for everyone (or specific logic)
+        if ($panel->getId() === 'warga') {
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * The attributes that are mass assignable.
