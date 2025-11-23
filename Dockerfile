@@ -45,6 +45,9 @@ RUN npm ci && npm run build
 # Publish Filament assets
 RUN php artisan filament:assets || true
 
+# Publish Livewire assets
+RUN php artisan livewire:publish --assets || true
+
 # Switch back to root for nginx configuration
 USER root
 

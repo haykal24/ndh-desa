@@ -23,9 +23,9 @@ new #[Layout('layouts.guest')] class extends Component
 
         // Redirect berdasarkan role
         if (auth()->user()->hasAnyRole(['super_admin', 'admin'])) {
-            return redirect()->to('/admin?fresh=' . now()->timestamp);
+            return $this->redirect('/admin', navigate: false);
         } else {
-            return $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+            return $this->redirectIntended(default: route('dashboard', absolute: false), navigate: false);
         }
     }
 }; ?>

@@ -35,6 +35,10 @@ php artisan route:cache
 echo "Publishing Filament assets..."
 php artisan filament:assets || true
 
+# Publish Livewire assets
+echo "Publishing Livewire assets..."
+php artisan livewire:publish --assets || true
+
 # Cache views (skip if error)
 echo "Caching views..."
 php artisan view:cache || true
@@ -42,6 +46,11 @@ php artisan view:cache || true
 # Create storage link
 echo "Creating storage link..."
 php artisan storage:link || true
+
+# Create upload directories if they don't exist
+echo "Creating upload directories..."
+mkdir -p /var/www/storage/app/public/uploads/desa
+mkdir -p /var/www/storage/app/public/uploads/desa/logo
 
 # Set permissions
 echo "Setting permissions..."
