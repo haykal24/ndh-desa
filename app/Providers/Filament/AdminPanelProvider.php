@@ -72,30 +72,8 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-                // Temporarily disable EnsureAdminRole to debug
-                // EnsureAdminRole::class,
+                EnsureAdminRole::class,
             ])
-            ->canAccessPanelUsing(function ($user) {
-                error_log(sprintf('[AdminPanelProvider] canAccessPanelUsing called for user: %s', $user?->email ?? 'null'));
-                
-                if (!$user) {
-                    error_log('[AdminPanelProvider] No user - denying access');
-                    return false;
-                }
-                
-                $roles = $user->roles->pluck('name')->toArray();
-                $hasAccess = $user->hasAnyRole(['super_admin', 'admin']);
-                
-                error_log(sprintf(
-                    '[AdminPanelProvider] User %s (ID: %d) - Roles: %s - Has Access: %s',
-                    $user->email,
-                    $user->id,
-                    implode(', ', $roles),
-                    $hasAccess ? 'YES' : 'NO'
-                ));
-                
-                return $hasAccess;
-            })
             ->plugins([
                 FilamentShieldPlugin::make()
             ])
