@@ -79,7 +79,7 @@
 
                     <!-- Clear Subtitle with Better Contrast -->
                     <p class="mt-5 text-white text-xl font-light max-w-2xl leading-relaxed" data-aos="fade-up" data-aos-delay="100" data-aos-duration="800">
-                    @if($profilDesa->kecamatan && $profilDesa->kabupaten)
+                    @if($profilDesa && $profilDesa->kecamatan && $profilDesa->kabupaten)
                         @php
                             // Formatting code untuk lokasi
                             $kecamatan = $profilDesa->kecamatan;

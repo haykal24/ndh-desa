@@ -24,6 +24,11 @@ class DatabaseSeeder extends Seeder
             RoleAndPermissionSeeder::class,
         ]);
 
+        // Always run BasicDataSeeder (creates minimal data without Faker)
+        $this->call([
+            BasicDataSeeder::class,
+        ]);
+
         // Only run DummyDataSeeder in non-production environments
         // (it requires Faker which is a dev dependency)
         if (app()->environment(['local', 'testing', 'development'])) {
