@@ -75,7 +75,8 @@ class AdminPanelProvider extends PanelProvider
                 EnsureAdminRole::class,
             ])
             ->plugins([
-                FilamentShieldPlugin::make()
+                // Temporarily disable Filament Shield to debug 403 issue
+                // FilamentShieldPlugin::make()
             ])
             ->userMenuItems([
                 'logout' => MenuItem::make()

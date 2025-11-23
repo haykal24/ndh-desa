@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 class EnsureAdminRole
 {
+    public function __construct()
+    {
+        error_log('[EnsureAdminRole] Middleware class instantiated');
+    }
+
     /**
      * Handle an incoming request.
      *
