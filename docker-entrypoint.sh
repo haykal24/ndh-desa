@@ -23,11 +23,18 @@ php artisan migrate --force
 echo "Running seeders..."
 php artisan db:seed --force
 
-# Cache configuration
+# Clear all caches first (important after code changes)
+echo "Clearing all caches..."
+php artisan cache:clear || true
+php artisan config:clear || true
+php artisan route:clear || true
+php artisan view:clear || true
+
+# Cache configuration (after clearing)
 echo "Caching configuration..."
 php artisan config:cache
 
-# Cache routes
+# Cache routes (after clearing)
 echo "Caching routes..."
 php artisan route:cache
 
@@ -56,10 +63,6 @@ mkdir -p /var/www/storage/app/public/uploads/desa/logo
 echo "Setting permissions..."
 chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 chmod -R 755 /var/www/storage /var/www/bootstrap/cache
-
-# Clear application cache
-echo "Clearing application cache..."
-php artisan cache:clear
 
 # Clear permission cache (important for Spatie Permission)
 echo "Clearing permission cache..."
