@@ -1527,14 +1527,7 @@
 function modernCarousel() {
     return {
         currentSlide: 0,
-        totalSlides: {
-            {
-                isset($profilDesa - > thumbnails) && is_array($profilDesa - > thumbnails) && count($profilDesa - >
-                        thumbnails) > 0 ?
-                    count($profilDesa - > thumbnails) :
-                    1
-            }
-        },
+        totalSlides: {{ isset($profilDesa->thumbnails) && is_array($profilDesa->thumbnails) && count($profilDesa->thumbnails) > 0 ? count($profilDesa->thumbnails) : 1 }},
         autoplaySpeed: 7000, // Time between slides (ms) - 7 seconds
         transitionDuration: 800, // Duration of transition animation (ms) - 0.8 seconds
         autoplayTimeout: null,
